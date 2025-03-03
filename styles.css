@@ -1,0 +1,86 @@
+/*** Login Page Styles ***/
+
+/* Center the login form vertically and horizontally */
+.container-xxl.py-5 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh; /* Adjust height as needed */
+}
+
+/* Style the login form container */
+.bg-dark.rounded.p-5 {
+    background-color: var(--dark) !important;
+    padding: 2rem !important;
+    border-radius: 10px !important;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 500px; /* Adjust width as needed */
+}
+
+/* Style the login form heading */
+.bg-dark.rounded.p-5 h2 {
+    color: var(--light) !important;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Style the form inputs */
+.form-floating input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--light) !important;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-floating input:focus {
+    border-color: var(--primary);
+    background-color: rgba(255, 255, 255, 0.2);
+    outline: none;
+}
+
+.form-floating label {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+}
+
+/* Style the login button */
+.btn-primary.w-100.py-3 {
+    background-color: var(--primary);
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.btn-primary.w-100.py-3:hover {
+    background-color: #e0940d; /* Slightly darker shade of primary */
+}
+
+/* Style the "Sign up" link */
+.text-primary {
+    color: var(--primary) !important;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.text-primary:hover {
+    color: #e0940d !important; /* Slightly darker shade of primary */
+    text-decoration: underline;
+}
+
+/* Error message styling */
+#error-message {
+    color: #ff4d4d; /* Red color for error messages */
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    text-align: center;
+}
