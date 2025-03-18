@@ -201,6 +201,28 @@
 
     <!-- Login Script -->
     <script src="js/login.js"></script>
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", async function (event) {
+            event.preventDefault();
+    
+            const email = document.getElementById("username").value; // Use "username" input for email
+            const password = document.getElementById("password").value;
+    
+            const response = await fetch("http://localhost:5000/api/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            });
+    
+            const data = await response.json();
+            document.getElementById("error-message").textContent = data.message;
+    
+            if (response.ok) {
+                window.location.href = "dashboard.html"; // Redirect on success
+            }
+        });
+    </script>
+    
 </body>
 
 </html>
