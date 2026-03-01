@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -9,6 +10,9 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
+
+// Serve static files from root directory
+app.use(express.static(path.join(__dirname, '..')));
 
 // MongoDB Connection
 mongoose.connect('mongodb://localhost:27017/rms', {
@@ -32,13 +36,24 @@ const reservationSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
     phone: { type: String, required: true },
-    date: { type: String, required: true }, // Store date as a string (e.g., "YYYY-MM-DD")
-    time: { type: String, required: true }, // Store time as a string (e.g., "HH:MM")
+    date: { type: String, required: true },
+    time: { type: String, required: true },
     people: { type: Number, required: true },
     message: { type: String }
 });
 
 const Reservation = mongoose.model('Reservation', reservationSchema);
+
+// Contact Schema
+const contactSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    subject: { type: String, required: true },
+    message: { type: String, required: true },
+    date: { type: Date, default: Date.now }
+});
+
+const Contact = mongoose.model('Contact', contactSchema);
 
 // 🔹 Signup API
 app.post('/api/signup', async (req, res) => {
@@ -131,6 +146,24 @@ app.post('/api/booking', async (req, res) => {
     } catch (error) {
         console.error('Booking error:', error); // Log the error
         res.status(500).json({ success: false, message: 'An error occurred during booking.' });
+    }
+});
+
+// 🔹 Contact API
+app.post('/api/contact', async (req, res) => {
+    const { name, email, subject, message } = req.body;
+
+    try {
+        if (!name || !email || !subject || !message) {
+            return res.status(400).json({ success: false, message: 'All fields are required.' });
+        }
+
+        const contact = new Contact({ name, email, subject, message });
+        await contact.save();
+        res.status(201).json({ success: true, message: 'Message sent successfully!' });
+    } catch (error) {
+        console.error('Contact error:', error);
+        res.status(500).json({ success: false, message: 'Failed to send message.' });
     }
 });
 
